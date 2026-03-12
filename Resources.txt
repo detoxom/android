@@ -1,0 +1,72 @@
+XML :
+
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@color/primaryColor"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:src="@drawable/logo"
+        android:layout_width="120dp"
+        android:layout_height="120dp"/>
+
+    <TextView
+        android:text="@string/title"
+        android:textColor="@color/textColor"
+        android:textSize="@dimen/text_size"
+        android:layout_margin="@dimen/margin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:text="@string/button_text"
+        android:backgroundTint="@color/buttonColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>
+
+
+colors.xml :
+
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <color name="primaryColor">#6200EE</color>
+    <color name="buttonColor">#03DAC5</color>
+    <color name="textColor">#000000</color>
+
+</resources>
+
+
+strings.xml :
+
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <string name="app_name">ResourcesDemo</string>
+    <string name="title">Welcome to Android Resources</string>
+    <string name="button_text">Click Me</string>
+
+</resources>
+
+
+
+dimens.xml :
+
+
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <dimen name="text_size">24sp</dimen>
+    <dimen name="margin">16dp</dimen>
+
+</resources>

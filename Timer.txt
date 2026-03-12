@@ -1,0 +1,84 @@
+XML :
+
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/timerText"
+        android:text="0"
+        android:textSize="30sp"
+        android:layout_marginBottom="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/startBtn"
+        android:text="Start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/stopBtn"
+        android:text="Stop"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>
+
+
+JAVA :
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.os.Handler;
+import android.widget.Button;
+import android.widget.TextView;
+
+public class MainActivity extends AppCompatActivity {
+
+    TextView timerText;
+    Button startBtn, stopBtn;
+
+    int seconds = 0;
+    boolean running = false;
+
+    Handler handler = new Handler();
+
+    Runnable timerRunnable = new Runnable() {
+        @Override
+        public void run() {
+
+            if (running) {
+                seconds++;
+                timerText.setText(String.valueOf(seconds));
+                handler.postDelayed(this, 1000);
+            }
+        }
+    };
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        timerText = findViewById(R.id.timerText);
+        startBtn = findViewById(R.id.startBtn);
+        stopBtn = findViewById(R.id.stopBtn);
+
+        startBtn.setOnClickListener(v -> {
+            running = true;
+            handler.post(timerRunnable);
+        });
+
+        stopBtn.setOnClickListener(v -> running = false);
+    }
+}

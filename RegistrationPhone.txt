@@ -1,0 +1,116 @@
+XML :
+
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/name"
+        android:hint="Name"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:id="@+id/email"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:id="@+id/phone"
+        android:hint="Phone Number"
+        android:inputType="phone"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:id="@+id/password"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:id="@+id/confirmPassword"
+        android:hint="Confirm Password"
+        android:inputType="textPassword"
+        android:layout_marginBottom="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/submit"
+        android:text="Submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>
+
+
+JAVA :
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+public class MainActivity extends AppCompatActivity {
+
+    EditText name, email, phone, password, confirmPassword;
+    Button submit;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        name = findViewById(R.id.name);
+        email = findViewById(R.id.email);
+        phone = findViewById(R.id.phone);
+        password = findViewById(R.id.password);
+        confirmPassword = findViewById(R.id.confirmPassword);
+        submit = findViewById(R.id.submit);
+
+        submit.setOnClickListener(v -> {
+
+            String n = name.getText().toString();
+            String e = email.getText().toString();
+            String ph = phone.getText().toString();
+            String p = password.getText().toString();
+            String cp = confirmPassword.getText().toString();
+
+            if(n.isEmpty() || e.isEmpty() || ph.isEmpty() || p.isEmpty() || cp.isEmpty())
+            {
+                Toast.makeText(MainActivity.this,
+                        "Please fill all fields",
+                        Toast.LENGTH_SHORT).show();
+            }
+            else if(!p.equals(cp))
+            {
+                Toast.makeText(MainActivity.this,
+                        "Passwords do not match",
+                        Toast.LENGTH_SHORT).show();
+            }
+            else
+            {
+                Toast.makeText(MainActivity.this,
+                        "Registration Successful",
+                        Toast.LENGTH_SHORT).show();
+            }
+
+        });
+    }
+}

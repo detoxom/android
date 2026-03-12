@@ -1,0 +1,151 @@
+XML :
+
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/firstName"
+        android:hint="First Name"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:id="@+id/lastName"
+        android:hint="Last Name"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:id="@+id/email"
+        android:hint="Email Address"
+        android:inputType="textEmailAddress"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <Spinner
+        android:id="@+id/countrySpinner"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:id="@+id/password"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:id="@+id/confirmPassword"
+        android:hint="Confirm Password"
+        android:inputType="textPassword"
+        android:layout_marginBottom="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/submit"
+        android:text="Submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>
+
+
+JAVA :
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Toast;
+
+public class MainActivity extends AppCompatActivity {
+
+    EditText firstName, lastName, email, password, confirmPassword;
+    Spinner countrySpinner;
+    Button submit;
+
+    String[] countries = {
+            "Select Country",
+            "India",
+            "USA",
+            "Canada",
+            "UK",
+            "Australia"
+    };
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        firstName = findViewById(R.id.firstName);
+        lastName = findViewById(R.id.lastName);
+        email = findViewById(R.id.email);
+        password = findViewById(R.id.password);
+        confirmPassword = findViewById(R.id.confirmPassword);
+        countrySpinner = findViewById(R.id.countrySpinner);
+        submit = findViewById(R.id.submit);
+
+        ArrayAdapter<String> adapter =
+                new ArrayAdapter<>(
+                        MainActivity.this,
+                        android.R.layout.simple_spinner_item,
+                        countries
+                );
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        countrySpinner.setAdapter(adapter);
+
+        submit.setOnClickListener(v -> {
+
+            String fn = firstName.getText().toString();
+            String ln = lastName.getText().toString();
+            String em = email.getText().toString();
+            String pw = password.getText().toString();
+            String cpw = confirmPassword.getText().toString();
+            String country = countrySpinner.getSelectedItem().toString();
+
+            if(fn.isEmpty() || ln.isEmpty() || em.isEmpty() || pw.isEmpty() || cpw.isEmpty())
+            {
+                Toast.makeText(MainActivity.this,
+                        "Please fill all fields",
+                        Toast.LENGTH_SHORT).show();
+            }
+            else if(country.equals("Select Country"))
+            {
+                Toast.makeText(MainActivity.this,
+                        "Please select country",
+                        Toast.LENGTH_SHORT).show();
+            }
+            else if(!pw.equals(cpw))
+            {
+                Toast.makeText(MainActivity.this,
+                        "Passwords do not match",
+                        Toast.LENGTH_SHORT).show();
+            }
+            else
+            {
+                Toast.makeText(MainActivity.this,
+                        "Registration Successful",
+                        Toast.LENGTH_SHORT).show();
+            }
+
+        });
+    }
+}

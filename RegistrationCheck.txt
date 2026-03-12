@@ -1,0 +1,119 @@
+XML :
+
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/username"
+        android:hint="Username"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:id="@+id/email"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <CheckBox
+        android:id="@+id/terms"
+        android:text="I Agree to Terms and Conditions"
+        android:layout_marginBottom="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:id="@+id/password"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:id="@+id/confirmPassword"
+        android:hint="Confirm Password"
+        android:inputType="textPassword"
+        android:layout_marginBottom="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/submit"
+        android:text="Submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>
+
+
+JAVA :
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.widget.*;
+
+public class MainActivity extends AppCompatActivity {
+
+    EditText username, email, password, confirmPassword;
+    CheckBox terms;
+    Button submit;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        username = findViewById(R.id.username);
+        email = findViewById(R.id.email);
+        password = findViewById(R.id.password);
+        confirmPassword = findViewById(R.id.confirmPassword);
+        terms = findViewById(R.id.terms);
+        submit = findViewById(R.id.submit);
+
+        submit.setOnClickListener(v -> {
+
+            String user = username.getText().toString();
+            String mail = email.getText().toString();
+            String pass = password.getText().toString();
+            String cpass = confirmPassword.getText().toString();
+
+            if(user.isEmpty() || mail.isEmpty() || pass.isEmpty() || cpass.isEmpty())
+            {
+                Toast.makeText(MainActivity.this,
+                        "Please fill all fields",
+                        Toast.LENGTH_SHORT).show();
+            }
+            else if(!terms.isChecked())
+            {
+                Toast.makeText(MainActivity.this,
+                        "Please agree to Terms and Conditions",
+                        Toast.LENGTH_SHORT).show();
+            }
+            else if(!pass.equals(cpass))
+            {
+                Toast.makeText(MainActivity.this,
+                        "Passwords do not match",
+                        Toast.LENGTH_SHORT).show();
+            }
+            else
+            {
+                Toast.makeText(MainActivity.this,
+                        "Registration Successful",
+                        Toast.LENGTH_SHORT).show();
+            }
+
+        });
+    }
+}
